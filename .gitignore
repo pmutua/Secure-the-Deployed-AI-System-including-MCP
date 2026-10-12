@@ -1,0 +1,17 @@
+.venv/
+__pycache__/
+**/__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.env
+
+# Runtime app/mcp logs are gitignored; evidence/*.log (captured proof of
+# each deliverable's claim) is deliberately NOT ignored.
+logs/
+access_control/logs/
+dpa/kept.jsonl
+dpa/sweep_report.json
+encryption/secrets/*.enc
+
+.vscode/

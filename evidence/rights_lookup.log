@@ -1,0 +1,7 @@
+== rights_lookup ==
+{'found': True, 'n_events': 3}
+{'found': False, 'n_events': 0}
+
+-- fails closed without a pepper --
+missing SUBJECT_PEPPER (and no JWT_SECRET fallback)
+exit: 1

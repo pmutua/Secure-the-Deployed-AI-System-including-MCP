@@ -1,0 +1,7 @@
+[
+  {"subject_hash": "c677424be719cb19", "kind": "audit", "note": "KSM-01 under the lab pepper"},
+  {"subject_hash": "c677424be719cb19", "kind": "audit", "note": "KSM-01 second audit event"},
+  {"subject_hash": "c677424be719cb19", "kind": "message", "note": "KSM-01 message event"},
+  {"subject_hash": "4b0eb7416bbfed60", "kind": "audit", "note": "VIH-01, a single event"},
+  {"subject_hash": "", "kind": "audit", "note": "empty subject hash edge case"}
+]

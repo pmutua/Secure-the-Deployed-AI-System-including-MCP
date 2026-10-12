@@ -1,0 +1,30 @@
+# docker-compose.yml - Deliverable 1's "Compose referencing ${JWT_SECRET}"
+# evidence: the signing key is named here and never valued -- Compose
+# resolves it from the host environment or .env at `docker compose up`
+# time. encryption/check_gitignore.py scans this exact file for an
+# inlined secret and fails if one is ever pasted in by mistake.
+#
+# Run it:
+#   cp .env.example .env   # then fill in a real JWT_SECRET
+#   docker compose up --build
+#   curl http://localhost:8000/health
+
+services:
+  triage-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: afyaplus-triage-api:week9-secure
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      JWT_SECRET: ${JWT_SECRET}
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=2)"]
+      interval: 30s
+      timeout: 3s
+      start_period: 5s
+      retries: 3
+    restart: unless-stopped

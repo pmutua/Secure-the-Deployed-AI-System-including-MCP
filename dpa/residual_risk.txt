@@ -1,0 +1,11 @@
+Risk: override-style user text
+  Mitigation: injection_guard returns 400, plus role limits on tools
+  Residual:   novel phrasing may still land; we fail closed on known prefixes and log the event
+
+Risk: a partner credential over-reaching into another clinic's stock
+  Mitigation: rbac.py's deny-by-default matrix plus the per-clinic allowlist in logistics_mcp_secure.py
+  Residual:   a compromised clinic credential still sees its own clinic's data in full; rotation, not scope, is the remaining control
+
+Risk: corpus swap
+  Mitigation: governance/knowledge/pin.json checked in CI
+  Residual:   a reviewed but wrong FAQ still needs clinical human review

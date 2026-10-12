@@ -1,0 +1,7 @@
+1. Contain: rotate JWT_SECRET and API keys, take the leaking path offline
+2. Assess:  what data, how many people, any special category?
+3. Notify:  the regulator per current guidance, then partners, then subjects if high risk
+4. Record:  what happened, and what you changed as a result
+
+Teaching clock: start the timer when you become aware, not when the write-up is tidy.
+See incident_72h_drill.txt for the AfyaPlus-specific walk-through.

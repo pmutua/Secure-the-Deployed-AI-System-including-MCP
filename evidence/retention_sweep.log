@@ -1,0 +1,7 @@
+== retention_sweep ==
+{'job_id': '6502b980-cc5b-4c7e-a384-80139ab6f3e1', 'run_date': '2024-08-18', 'clock': 'fixture: frozen NOW, not a production run', 'dataset': 'triage_messages', 'range': {'cut_ts': 1716224000, 'now_ts': 1724000000}, 'count_dropped': 1, 'count_kept': 2, 'rule': '90-day retention for triage_messages'}
+
+-- deletion_records.jsonl (append-only; never swept itself) --
+{"job_id": "b1ef7e7d-fb53-4f8f-9512-d2b5dfd2bdec", "run_date": "2024-08-18", "clock": "fixture: frozen NOW, not a production run", "dataset": "triage_messages", "range": {"cut_ts": 1716224000, "now_ts": 1724000000}, "count_dropped": 1, "count_kept": 1, "rule": "90-day retention for triage_messages"}
+{"job_id": "7f2bc725-c433-4dfd-a799-05582059cc44", "run_date": "2024-08-18", "clock": "fixture: frozen NOW, not a production run", "dataset": "triage_messages", "range": {"cut_ts": 1716224000, "now_ts": 1724000000}, "count_dropped": 1, "count_kept": 1, "rule": "90-day retention for triage_messages"}
+{"job_id": "6502b980-cc5b-4c7e-a384-80139ab6f3e1", "run_date": "2024-08-18", "clock": "fixture: frozen NOW, not a production run", "dataset": "triage_messages", "range": {"cut_ts": 1716224000, "now_ts": 1724000000}, "count_dropped": 1, "count_kept": 2, "rule": "90-day retention for triage_messages"}

@@ -1,0 +1,92 @@
+2026-10-12 14:28:36,265 tool=check_stock role=clinical_ops item=amoxicillin clinic_id=
+2026-10-12 14:28:36,265 tool=check_stock role=partner_clinic item=amoxicillin clinic_id=KSM-01
+2026-10-12 14:28:36,266 tool=check_stock role=partner_clinic item=amoxicillin clinic_id=*
+2026-10-12 14:28:36,266 tool=check_stock role=partner_clinic item=amoxicillin clinic_id=KSI-01
+2026-10-12 14:28:36,266 tool=check_stock role=intern item=amoxicillin clinic_id=KSM-01
+2026-10-12 14:28:36,266 tool=plan_delivery_route role=partner_clinic start=KSM-01
+=== clinical_ops check_stock(amoxicillin): the full cross-clinic table ===
+{
+  "item": "amoxicillin",
+  "stock": [
+    {
+      "clinic": "Kisumu Central Clinic",
+      "clinic_id": "KSM-01",
+      "county": "Kisumu",
+      "units": 40,
+      "reorder_needed": false
+    },
+    {
+      "clinic": "Vihiga Health Post",
+      "clinic_id": "VIH-01",
+      "county": "Vihiga",
+      "units": 8,
+      "reorder_needed": true
+    },
+    {
+      "clinic": "Homa Bay Lakeside Clinic",
+      "clinic_id": "HBA-01",
+      "county": "Homa Bay",
+      "units": 0,
+      "reorder_needed": true
+    },
+    {
+      "clinic": "Kisii Family Clinic",
+      "clinic_id": "KSI-01",
+      "county": "Kisii",
+      "units": 75,
+      "reorder_needed": false
+    },
+    {
+      "clinic": "Kisumu West Dispensary",
+      "clinic_id": "KSM-02",
+      "county": "Kisumu",
+      "units": 22,
+      "reorder_needed": false
+    }
+  ]
+}
+-> 5 clinics returned (the whole country)
+
+=== partner_clinic check_stock(amoxicillin, clinic_id=KSM-01): scoped to one clinic ===
+{
+  "item": "amoxicillin",
+  "stock": [
+    {
+      "clinic": "Kisumu Central Clinic",
+      "clinic_id": "KSM-01",
+      "county": "Kisumu",
+      "units": 40,
+      "reorder_needed": false
+    }
+  ]
+}
+-> 1 clinic returned (their own clinic only)
+
+=== partner_clinic check_stock(amoxicillin, clinic_id="*"): the bulk-extraction probe ===
+{
+  "error": "unknown or unauthorised clinic_id",
+  "code": 400
+}
+-> refused: a wildcard is just another string that fails the allowlist, never a pattern
+
+=== partner_clinic check_stock(amoxicillin, clinic_id=KSI-01): a real clinic, not theirs ===
+{
+  "error": "unknown or unauthorised clinic_id",
+  "code": 400
+}
+-> refused: KSI-01 exists in clinics.json but is outside this partner's allowlist
+
+=== unknown role 'intern' check_stock: deny-by-default ===
+{
+  "error": "forbidden",
+  "code": 403
+}
+-> denied: a role rbac.py has never heard of gets 403, never a KeyError and never data
+
+=== partner_clinic plan_delivery_route: routing is a clinical_ops-only tool ===
+{
+  "error": "forbidden",
+  "code": 403
+}
+
+ALL ASSERTIONS PASSED: check_stock cannot dump a country.

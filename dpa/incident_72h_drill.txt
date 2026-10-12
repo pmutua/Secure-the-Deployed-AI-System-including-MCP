@@ -1,0 +1,22 @@
+# DRILL, not a filed regulator notice
+
+T+0 contain: rotate the committed signing key immediately (JWT_SECRET and
+  any other vault object touched by the same commit); revoke at the
+  vault/KMS side -- a git history purge alone does not un-leak a key;
+  take the affected endpoint offline until the new key is deployed.
+
+T+few hours assess: diff the exposed commit against
+  encryption/secret_refs.yaml and encryption/kms_twin.json to see exactly
+  which vault object leaked; check logging_/logs/audit_stacked.jsonl for
+  any call made with the exposed key during the window; confirm whether
+  any special-category dataset (dpa/data_inventory.json) was reachable
+  with it.
+
+Notify (teaching clock, 72h): draft the ODPC notification per current
+  odpc.go.ke guidance, then notify affected partner clinics; confirm
+  current timelines and content requirements before filing anything real.
+
+Record: rotate, then re-run encryption/check_gitignore.py so a signing
+  key literal cannot be committed the same way twice; append a
+  deletion_records.jsonl-style entry if any data must be scrubbed; add an
+  addendum to manager_brief.md naming what happened and what changed.

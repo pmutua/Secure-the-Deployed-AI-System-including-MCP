@@ -1,0 +1,37 @@
+[
+  {
+    "name": "triage_messages",
+    "purpose": "generate advisory urgency bands and clinic next-step language",
+    "lawful_basis": "teaching: legitimate_interests_or_consent_review",
+    "retention_days": 90,
+    "special_category": true
+  },
+  {
+    "name": "audit_logs",
+    "purpose": "who called which tool, for accountability and incident response",
+    "lawful_basis": "teaching: legitimate_interests",
+    "retention_days": 180,
+    "special_category": false
+  },
+  {
+    "name": "mcp_stock_queries",
+    "purpose": "tell a partner whether an item is in stock at their clinic",
+    "lawful_basis": "teaching: contract_with_partner_clinic",
+    "retention_days": 30,
+    "special_category": false
+  },
+  {
+    "name": "knowledge_files",
+    "purpose": "pinned FAQ corpus retrieved to ground advisory answers",
+    "lawful_basis": "n/a_not_personal_data",
+    "retention_days": null,
+    "special_category": false
+  },
+  {
+    "name": "jwt_subjects",
+    "purpose": "identify the calling clinic on every request",
+    "lawful_basis": "teaching: legitimate_interests",
+    "retention_days": 30,
+    "special_category": false
+  }
+]

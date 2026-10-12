@@ -1,0 +1,7 @@
+{
+  "triage_messages": {"days": 90, "notes": "hashed and redacted payloads"},
+  "audit_logs": {"days": 180, "notes": "actor, action, resource; no raw clinical text"},
+  "mcp_stock_queries": {"days": 30, "notes": "stock-check history; low sensitivity, short window"},
+  "knowledge_files": {"days": null, "notes": "not personal data; pinned in git"},
+  "jwt_subjects": {"days": 30, "notes": "token subject identifies the calling clinic; rotates with the token itself"}
+}

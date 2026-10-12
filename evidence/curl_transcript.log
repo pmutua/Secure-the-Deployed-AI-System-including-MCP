@@ -1,0 +1,63 @@
+=== GET /health (unprotected) ===
+HTTP/1.1 200 OK
+date: Mon, 12 Oct 2026 11:31:12 GMT
+server: uvicorn
+content-length: 65
+content-type: application/json
+
+{"service":"afyaplus-triage-api","version":"2.0.0","status":"ok"}
+
+=== POST /triage with NO token -> expect 401 ===
+HTTP/1.1 401 Unauthorized
+date: Mon, 12 Oct 2026 11:31:12 GMT
+server: uvicorn
+www-authenticate: Bearer
+content-length: 30
+content-type: application/json
+
+{"detail":"Not authenticated"}
+
+=== POST /token as guest (viewer role) ===
+HTTP/1.1 200 OK
+date: Mon, 12 Oct 2026 11:31:12 GMT
+server: uvicorn
+content-length: 186
+content-type: application/json
+
+{"access_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJndWVzdCIsInJvbGUiOiJ2aWV3ZXIiLCJleHAiOjE3OTE4MDY0NzN9.kfja-U2aZ499EhfwyNac2l-nK1YTWJrLGV9Sw2YbF3k","token_type":"bearer"}
+
+=== POST /triage with a VALID guest token -> expect 403 (authenticated, not authorised) ===
+HTTP/1.1 403 Forbidden
+date: Mon, 12 Oct 2026 11:31:13 GMT
+server: uvicorn
+content-length: 74
+content-type: application/json
+
+{"detail":"Your role may not use this endpoint (requires 'coordinator')."}
+
+=== POST /token as mercy (coordinator role) ===
+HTTP/1.1 200 OK
+date: Mon, 12 Oct 2026 11:31:13 GMT
+server: uvicorn
+content-length: 193
+content-type: application/json
+
+{"access_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJtZXJjeSIsInJvbGUiOiJjb29yZGluYXRvciIsImV4cCI6MTc5MTgwNjQ3NH0.UXGI0Pc8xGzcIu4-laB9MGPyOCSev4tKdX0ZG31Auws","token_type":"bearer"}
+
+=== POST /triage with coordinator token, ordinary message -> expect 200 ===
+HTTP/1.1 200 OK
+date: Mon, 12 Oct 2026 11:31:14 GMT
+server: uvicorn
+content-length: 97
+content-type: application/json
+
+{"urgency":"low","advice":"Rest, drink fluids, and monitor your symptoms.","handled_for":"mercy"}
+
+=== POST /triage with coordinator token, override-style text -> expect 400 before any model call ===
+HTTP/1.1 400 Bad Request
+date: Mon, 12 Oct 2026 11:31:14 GMT
+server: uvicorn
+content-length: 42
+content-type: application/json
+
+{"error":"rejected","trace_id":"1222c717"}

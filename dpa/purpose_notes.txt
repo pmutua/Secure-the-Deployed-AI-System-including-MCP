@@ -1,0 +1,6 @@
+triage_messages:
+  purpose:     generate advisory urgency bands and clinic next-step language
+  not_purpose: sell to brokers, or scrape into a public model corpus
+
+mcp_stock_queries:
+  purpose:     tell a partner whether an item is in stock at their clinic

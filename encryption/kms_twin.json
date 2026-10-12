@@ -1,0 +1,22 @@
+{
+  "store_secret": {
+    "azure": "Key Vault secret jwt-signing-key",
+    "aws": "Secrets Manager secret, KMS encrypted"
+  },
+  "encrypt_dek": {
+    "azure": "Key Vault key wrap",
+    "aws": "KMS GenerateDataKey / Encrypt"
+  },
+  "rotate": {
+    "azure": "Key Vault rotation policy",
+    "aws": "Secrets Manager rotation plus a new CMK version"
+  },
+  "audit": {
+    "azure": "Key Vault diagnostic logs",
+    "aws": "CloudTrail KMS events"
+  },
+  "grant_identity": {
+    "azure": "Key Vault RBAC on a managed identity",
+    "aws": "IAM policy on a task role or IRSA"
+  }
+}

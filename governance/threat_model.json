@@ -1,0 +1,30 @@
+[
+  {
+    "kind": "secret",
+    "asset": "JWT_SECRET",
+    "actor": "leaked laptop or committed .env",
+    "action": "forge partner bearer tokens",
+    "control": "kept out of git (encryption/secrets_not_in_git.sh); app refuses to boot without it (encryption/boot_guard.py)"
+  },
+  {
+    "kind": "data",
+    "asset": "triage chat logs",
+    "actor": "curious partner reviewer or a breached log store",
+    "action": "read raw patient messages beyond stated purpose",
+    "control": "logging_/redact_then_hash.py redacts then hashes the payload; never logs the raw message"
+  },
+  {
+    "kind": "config",
+    "asset": "pinned FAQ corpus",
+    "actor": "a vendor or teammate editing the FAQ file directly",
+    "action": "silent rewrite",
+    "control": "governance/knowledge/pin.json plus check_corpus_pin.py fails CI on any hash mismatch"
+  },
+  {
+    "kind": "mcp",
+    "asset": "check_stock",
+    "actor": "a noisy partner client sending clinic_id=\"*\" or omitting it",
+    "action": "bulk extraction of every clinic's stock in one call",
+    "control": "logistics_mcp_secure.py refuses any clinic_id outside the allowlist, and scopes partner_clinic to exactly one clinic"
+  }
+]

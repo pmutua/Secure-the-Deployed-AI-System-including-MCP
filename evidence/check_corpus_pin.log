@@ -1,0 +1,12 @@
+== check_corpus_pin: PASS (matches committed knowledge file) ==
+OK 1 knowledge file(s) match the pin
+exit: 0
+
+== check_corpus_pin: FAIL demo (silently tamper the FAQ, then re-check) ==
+FAIL: corpus pin mismatch
+ - governance/knowledge/ors_faq.md: hash mismatch (pinned 8dcf125e97da..., got 7b1b84f210f3...)
+exit: 1
+
+-- restored the pinned file; re-running to confirm it passes again --
+OK 1 knowledge file(s) match the pin
+exit: 0

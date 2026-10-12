@@ -1,0 +1,9 @@
+{
+  "tool": "check_stock",
+  "clinic_id": "KSM-01",
+  "qty": 40,
+  "debug_env": {
+    "JWT_SECRET": "please-change-me",
+    "OPENAI_API_KEY": "sk-leak"
+  }
+}

@@ -1,0 +1,6 @@
+Teaching labels, not a legal opinion:
+  data controller: AfyaPlus decides why /triage exists
+  data processor:  a cloud LLM vendor processing the prompts you send
+  data subject:    the person the message is about, or the logged-in partner user
+
+Named in data_inventory.json's purpose fields.
