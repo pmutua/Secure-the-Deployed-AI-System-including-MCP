@@ -61,17 +61,23 @@ def create_token(username: str) -> str:
     return jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)
 
 
-bearer = HTTPBearer()
+bearer = HTTPBearer(auto_error=False)
 
 
-def current_user(credentials: HTTPAuthorizationCredentials = Depends(bearer)) -> dict:
+def current_user(credentials: HTTPAuthorizationCredentials | None = Depends(bearer)) -> dict:
     """FastAPI dependency: verifies the Bearer token before the endpoint body runs.
 
-    A missing Authorization header is rejected by HTTPBearer itself (401)
-    before this function is even called. A present-but-bad token (expired,
-    or altered so its signature no longer matches) becomes a clean 401
-    here instead of leaking a jwt.decode exception as an unhandled 500.
+    auto_error=False on HTTPBearer, plus the explicit check below, is
+    what makes a missing Authorization header a 401 and not FastAPI's
+    HTTPBearer default of 403 -- "no credentials offered" and "credentials
+    offered but invalid" are both authentication failures, so both must
+    be 401; only a VALID token for the wrong role earns 403
+    (require_role, below). A present-but-bad token (expired, or altered
+    so its signature no longer matches) becomes a clean 401 here instead
+    of leaking a jwt.decode exception as an unhandled 500.
     """
+    if credentials is None:
+        raise HTTPException(status_code=401, detail="Not authenticated.")
     try:
         payload = jwt.decode(credentials.credentials, SECRET_KEY, algorithms=[ALGORITHM])
     except jwt.ExpiredSignatureError:
